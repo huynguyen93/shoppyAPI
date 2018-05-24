@@ -99,4 +99,26 @@ class ShoeManager extends AbstractManager
 
         return $shoes;
     }
+
+    public function findOneBy(array $criteria)
+    {
+        $qb = $this->createQueryBuilder('shoe')
+            ->leftJoin('shoe.brand', 'brand', 'WITH')
+            ->leftJoin('shoe.category', 'category', 'WITH')
+            ->leftJoin('shoe.colors', 'shoeColor', 'WITH')
+            ->leftJoin('shoeColor.images', 'shoeColorImage', 'WITH')
+            ->leftJoin('shoeColor.sizes', 'shoeColorSize', 'WITH')
+            ->addSelect('brand')
+            ->addSelect('category')
+            ->addSelect('shoeColor')
+            ->addSelect('shoeColorImage')
+            ->addSelect('shoeColorSize')
+        ;
+
+        foreach ($criteria as $column => $value) {
+            $qb->andWhere('shoe.'.$column.' = :'.$column)->setParameter($column, $value);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

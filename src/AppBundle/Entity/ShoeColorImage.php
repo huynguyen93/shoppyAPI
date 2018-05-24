@@ -50,7 +50,7 @@ class ShoeColorImage
     /**
      * @var string
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"detail"})
      */
     private $xl;
 
