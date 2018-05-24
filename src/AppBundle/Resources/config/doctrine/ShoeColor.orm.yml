@@ -16,11 +16,9 @@ AppBundle\Entity\ShoeColor:
         images:
             targetEntity: AppBundle\Entity\ShoeColorImage
             mappedBy: shoeColor
-            fetch: EAGER
         sizes:
             targetEntity: AppBundle\Entity\ShoeColorSize
             mappedBy: shoeColor
-            fetch: EAGER
     manyToOne:
         shoe:
             targetEntity: AppBundle\Entity\Shoe

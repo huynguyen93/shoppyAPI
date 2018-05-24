@@ -47,7 +47,6 @@ AppBundle\Entity\Shoe:
         colors:
             targetEntity: AppBundle\Entity\ShoeColor
             mappedBy: shoe
-            fetch: EAGER
     manyToOne:
         category:
             targetEntity: AppBundle\Entity\Category

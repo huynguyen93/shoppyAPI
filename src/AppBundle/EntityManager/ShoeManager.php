@@ -5,7 +5,7 @@ namespace AppBundle\EntityManager;
 use AppBundle\Entity\Category;
 use AppBundle\Pagination\PaginationFactory;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ShoeManager extends AbstractManager
 {
@@ -77,17 +77,26 @@ class ShoeManager extends AbstractManager
 
     public function findFeaturedShoes($limit, $offset)
     {
-        return $this->findAllQueryBuilder($limit, $offset)
+        $qb = $this->findAllQueryBuilder($limit, $offset)
             ->andWhere('shoe.featuredPriority > 0')
             ->orderBy('shoe.featuredPriority', 'DESC')
-            ->innerJoin('shoe.brand', 'brand', 'WITH', 'shoe.brand = brand.id')
-//            ->leftJoin('shoe.colors', 'shoeColor', 'WITH', 'shoe.id = shoeColor.shoe')
-//            ->leftJoin('shoeColor.images', 'shoeColorImage', 'WITH', 'shoeColor.id = shoeColorImage.shoeColor')
+            ->innerJoin('shoe.brand', 'brand', 'WITH')
+            ->leftJoin('shoe.colors', 'shoeColor', 'WITH')
+            ->leftJoin('shoeColor.images', 'shoeColorImage', 'WITH')
             ->addSelect('brand')
-//            ->addSelect('shoeColor')
-//            ->addSelect('shoeColorImage')
-            ->getQuery()
-            ->getResult()
+            ->addSelect('shoeColor')
+            ->addSelect('shoeColorImage')
         ;
+
+        // limit and join queries don't work well together
+        // Paginator to the rescue
+        $paginator = new Paginator($qb);
+        $shoes     = [];
+
+        foreach ($paginator as $shoe) {
+            $shoes[] = $shoe;
+        }
+
+        return $shoes;
     }
 }
