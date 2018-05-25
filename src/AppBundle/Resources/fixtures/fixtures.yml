@@ -37,8 +37,8 @@ AppBundle\Entity\ShoeColor:
         code: '<numberBetween(1000, 2000)>'
 
 AppBundle\Entity\ShoeColorSize:
-    size_{1..200}:
-        shoeColor: '@shoeColor_<current()>'
+    size_{1..1000}:
+        shoeColor: '@shoeColor_*'
         size: "<randomElement([36, 37, 38, 39, 40, 41, 42, 43, 44, 45])>"
         quantity: '<numberBetween(0, 25)>'
 
