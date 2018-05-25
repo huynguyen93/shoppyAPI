@@ -21,8 +21,6 @@ class ShoeColorImage
 
     /**
      * @var int
-     * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
      */
     private $position;
 
