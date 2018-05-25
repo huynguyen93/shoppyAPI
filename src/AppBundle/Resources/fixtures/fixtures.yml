@@ -37,16 +37,75 @@ AppBundle\Entity\ShoeColor:
         code: '<numberBetween(1000, 2000)>'
 
 AppBundle\Entity\ShoeColorSize:
-    size_{1..1000}:
-        shoeColor: '@shoeColor_*'
-        size: "<randomElement([36, 37, 38, 39, 40, 41, 42, 43, 44, 45])>"
+    size36_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        size: 36
+        quantity: '<numberBetween(0, 25)>'
+
+    size37_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        size: 37
+        quantity: '<numberBetween(0, 25)>'
+
+    size38_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        size: 38
+        quantity: '<numberBetween(0, 25)>'
+
+    size39_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        size: 39
+        quantity: '<numberBetween(0, 25)>'
+
+    size40_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        size: 40
+        quantity: '<numberBetween(0, 25)>'
+
+    size41_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        size: 41
+        quantity: '<numberBetween(0, 25)>'
+
+    size42_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        size: 42
+        quantity: '<numberBetween(0, 25)>'
+
+    size43_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        size: 43
         quantity: '<numberBetween(0, 25)>'
 
 AppBundle\Entity\ShoeColorImage:
-    image_{1..1000}:
-        shoeColor: '@shoeColor_*'
-        position: '<numberBetween(1, 10)>'
-        xl: '/assets/img/color<numberBetween(1,2)>/style<numberBetween(1,10)>/extra-large.jpg'
-        lg: '/assets/img/color<numberBetween(1,2)>/style<numberBetween(1,10)>/large.jpg'
-        md: '/assets/img/color<numberBetween(1,2)>/style<numberBetween(1,10)>/medium.jpg'
-        sm: '/assets/img/color<numberBetween(1,2)>/style<numberBetween(1,10)>/small.jpg'
+    imageStyle1_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        position: 1
+        xl: '/assets/img/color1/style<numberBetween(1, 10)>/extra-large.jpg'
+        lg: '/assets/img/color1/style<numberBetween(1, 10)>/large.jpg'
+        md: '/assets/img/color1/style<numberBetween(1, 10)>/medium.jpg'
+        sm: '/assets/img/color1/style<numberBetween(1, 10)>/small.jpg'
+
+    imageStyle2_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        position: 2
+        xl: '/assets/img/color2/style<numberBetween(1, 10)>/extra-large.jpg'
+        lg: '/assets/img/color2/style<numberBetween(1, 10)>/large.jpg'
+        md: '/assets/img/color2/style<numberBetween(1, 10)>/medium.jpg'
+        sm: '/assets/img/color2/style<numberBetween(1, 10)>/small.jpg'
+
+    imageStyle3_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        position: 3
+        xl: '/assets/img/color1/style<numberBetween(1, 10)>/extra-large.jpg'
+        lg: '/assets/img/color1/style<numberBetween(1, 10)>/large.jpg'
+        md: '/assets/img/color1/style<numberBetween(1, 10)>/medium.jpg'
+        sm: '/assets/img/color1/style<numberBetween(1, 10)>/small.jpg'
+
+    imageStyle3_{1..200}:
+        shoeColor: '@shoeColor_<current()>'
+        position: 4
+        xl: '/assets/img/color2/style<numberBetween(1, 10)>/extra-large.jpg'
+        lg: '/assets/img/color2/style<numberBetween(1, 10)>/large.jpg'
+        md: '/assets/img/color2/style<numberBetween(1, 10)>/medium.jpg'
+        sm: '/assets/img/color2/style<numberBetween(1, 10)>/small.jpg'
