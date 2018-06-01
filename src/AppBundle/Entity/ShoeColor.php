@@ -22,27 +22,26 @@ class ShoeColor
     /**
      * @var string
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $name;
 
     /**
      * @var string
-     * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
      */
     private $code;
 
     /**
      * @var ShoeColorImage[]
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $images;
 
     /**
      * @var ShoeColorSize[]
      * @Serializer\Expose()
+     * @Serializer\Groups({"detail"})
      */
     private $sizes;
 

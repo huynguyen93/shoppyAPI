@@ -23,10 +23,11 @@ class DefaultController extends Controller
         $data['categories'] = $this->get('app.manager.category')->getCategoryTree();
 
         $shoeManager = $this->get('app.manager.shoe');
-        $featured = $shoeManager->findFeaturedShoes(10, 0);
 
         $data['shoes'] = [
-            'featured' => $featured,
+            'featured' => $shoeManager->findFeaturedShoes(10, 0),
+            'new' => $shoeManager->findNewShoes(10, 0),
+            'bestSelling' => $shoeManager->findBestSelling(10, 0),
         ];
 
         return new Response(

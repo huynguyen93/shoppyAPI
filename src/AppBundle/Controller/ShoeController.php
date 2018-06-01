@@ -3,19 +3,21 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use FOS\RestBundle\Controller\FOSRestController;
+use JMS\Serializer\SerializationContext;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ShoeController extends Controller
+class ShoeController extends FOSRestController
 {
     public function listAction(Request $request)
     {
         $limit    = $request->query->get('itemsPerPage', 10);
         $page     = $request->query->get('page', 1);
         $category = $request->query->get('category');
-        $brands   = $request->query->get('brands', []);
+        $brand    = $request->query->get('brand');
         $orderBy  = $request->query->get('orderBy');
         $order    = $request->query->get('order');
         $offset   = $limit * ($page - 1);
@@ -24,11 +26,7 @@ class ShoeController extends Controller
         $brandManager = $this->get('app.manager.brand');
         $shoeManager = $this->get('app.manager.shoe');
 
-//        $categories = $this->get('app.manager.category')->findAll();
-//        $allBrands = $this->get('app.manager.brand')->findAll();
-
         if ($category) {
-            /** @var Category $category */
             $category = $categoryManager->findOneBy(['slug' => $category]);
 
             if (!$category) {
@@ -36,15 +34,15 @@ class ShoeController extends Controller
             }
         }
 
-        if ($brands) {
-            $brands = $brandManager->findBy(['slug' => $brands]);
+        if ($brand) {
+            $brand = $brandManager->findOneBy(['slug' => $brand]);
 
-            if (empty($brands)) {
+            if (!$brand) {
                 return [];
             }
         }
 
-        $qb = $shoeManager->findByQueryBuilder($category, $brands, $orderBy, $order, $limit, $offset);
+        $qb = $shoeManager->findByQueryBuilder($category, $brand, $orderBy, $order, $limit, $offset);
 
         return new Response(
             $this->get('jms_serializer')->serialize(
@@ -64,7 +62,7 @@ class ShoeController extends Controller
         }
 
         return new Response(
-            $this->get('jms_serializer')->serialize($shoe, 'json'),
+            $this->get('jms_serializer')->serialize($shoe, 'json', SerializationContext::create()->setGroups(['detail'])),
             200,
             ['Content-Type' => 'application/json']
         );

@@ -13,3 +13,11 @@ app.shoe.list:
 app.shoe.detail:
     path: /shoes/{slug}
     defaults: { _controller: AppBundle:Shoe:detail }
+
+app.token.new:
+    path: /tokens
+    defaults: { _controller: AppBundle:Token:new }
+
+app.user.new:
+    path: /users
+    defaults: { _controller: AppBundle:User:new }

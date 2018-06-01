@@ -19,6 +19,12 @@ services:
             - '@app.pagination_factory'
             - '@app.manager.category'
 
+    app.manager.user:
+        class: AppBundle\EntityManager\UserManager
+        arguments:
+            - '@doctrine'
+            - 'AppBundle\Entity\User'
+
     app.pagination_factory:
         class: AppBundle\Pagination\PaginationFactory
         arguments:
@@ -36,3 +42,9 @@ services:
         class: AppBundle\EventListener\CorsListener
         tags:
            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+    app.jwt_token_authenticator:
+        class: AppBundle\Security\JwtTokenAuthenticator
+        arguments:
+            - '@lexik_jwt_authentication.encoder.default'
+            - '@app.manager.user'

@@ -2,9 +2,11 @@
 
 namespace AppBundle\EntityManager;
 
+use AppBundle\Entity\Brand;
 use AppBundle\Entity\Category;
 use AppBundle\Pagination\PaginationFactory;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ShoeManager extends AbstractManager
@@ -36,7 +38,7 @@ class ShoeManager extends AbstractManager
 
     public function findByQueryBuilder(
         Category $category = null,
-        array $brands = [],
+        Brand $brands = null,
         $orderBy = null,
         $order = 'ASC',
         $limit,
@@ -57,7 +59,7 @@ class ShoeManager extends AbstractManager
         }
 
         if ($brands) {
-            $qb->andWhere('shoe.brand IN (:brands)')
+            $qb->andWhere('shoe.brand = :brands')
                 ->setParameter('brands', $brands);
         }
 
@@ -88,16 +90,37 @@ class ShoeManager extends AbstractManager
             ->addSelect('shoeColorImage')
         ;
 
-        // limit and join queries don't work well together
-        // Paginator to the rescue
-        $paginator = new Paginator($qb);
-        $shoes     = [];
+        return $this->getPaginatedShoes($qb);
+    }
 
-        foreach ($paginator as $shoe) {
-            $shoes[] = $shoe;
-        }
+    public function findNewShoes($limit, $offset)
+    {
+        $qb = $this->findAllQueryBuilder($limit, $offset)
+            ->orderBy('shoe.releaseDate', 'DESC')
+            ->innerJoin('shoe.brand', 'brand', 'WITH')
+            ->leftJoin('shoe.colors', 'shoeColor', 'WITH')
+            ->leftJoin('shoeColor.images', 'shoeColorImage', 'WITH')
+            ->addSelect('brand')
+            ->addSelect('shoeColor')
+            ->addSelect('shoeColorImage')
+        ;
 
-        return $shoes;
+        return $this->getPaginatedShoes($qb);
+    }
+
+    public function findBestSelling($limit, $offset)
+    {
+        $qb = $this->findAllQueryBuilder($limit, $offset)
+            ->orderBy('shoe.salesCount', 'DESC')
+            ->innerJoin('shoe.brand', 'brand', 'WITH')
+            ->leftJoin('shoe.colors', 'shoeColor', 'WITH')
+            ->leftJoin('shoeColor.images', 'shoeColorImage', 'WITH')
+            ->addSelect('brand')
+            ->addSelect('shoeColor')
+            ->addSelect('shoeColorImage')
+        ;
+
+        return $this->getPaginatedShoes($qb);
     }
 
     public function findOneBy(array $criteria)
@@ -120,5 +143,23 @@ class ShoeManager extends AbstractManager
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Join and limit query need Paginator to get correct result
+     *
+     * @param QueryBuilder $queryBuilder
+     * @return array
+     */
+    private function getPaginatedShoes(QueryBuilder $queryBuilder)
+    {
+        $paginator = new Paginator($queryBuilder);
+        $shoes     = [];
+
+        foreach ($paginator as $shoe) {
+            $shoes[] = $shoe;
+        }
+
+        return $shoes;
     }
 }

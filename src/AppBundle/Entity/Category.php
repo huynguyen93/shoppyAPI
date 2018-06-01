@@ -53,8 +53,6 @@ class Category
 
     /**
      * @var int
-     * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
      */
     private $position;
 

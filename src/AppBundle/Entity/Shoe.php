@@ -23,21 +23,21 @@ class Shoe
     /**
      * @var int
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $category;
 
     /**
      * @var Brand
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $brand;
 
     /**
      * @var string
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $name;
 
@@ -49,34 +49,30 @@ class Shoe
     /**
      * @var float
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $price;
 
     /**
      * @var string
-     * @Serializer\Expose()
+     * @Serializer\Groups({"init", "detail"})
      */
     private $description;
 
     /**
      * @var ShoeColor[]
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $colors;
 
     /**
      * @var int
-     * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
      */
     private $position;
 
     /**
      * @var int
-     * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
      */
     private $featuredPriority;
 
@@ -88,7 +84,7 @@ class Shoe
     /**
      * @var \DateTime
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $releaseDate;
 

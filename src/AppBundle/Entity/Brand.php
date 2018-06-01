@@ -2,10 +2,16 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotation\Link;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @Serializer\ExclusionPolicy("all")
+ * @Link(
+ *     "self",
+ *     route="app.shoe.list",
+ *     params={"brands[]": "object.getSlug()"}
+ * )
  */
 class Brand
 {
@@ -15,14 +21,14 @@ class Brand
     /**
      * @var string
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $name;
 
     /**
      * @var string
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $slug;
 

@@ -22,12 +22,14 @@ class ShoeColorSize
     /**
      * @var int
      * @Serializer\Expose()
+     * @Serializer\Groups({"detail"})
      */
     private $size;
 
     /**
      * @var int
      * @Serializer\Expose()
+     * @Serializer\Groups({"detail"})
      */
     private $quantity;
 

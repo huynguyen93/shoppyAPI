@@ -109,3 +109,9 @@ AppBundle\Entity\ShoeColorImage:
         lg: '/assets/img/color2/style<numberBetween(1, 10)>/large.jpg'
         md: '/assets/img/color2/style<numberBetween(1, 10)>/medium.jpg'
         sm: '/assets/img/color2/style<numberBetween(1, 10)>/small.jpg'
+
+AppBundle\Entity\User:
+    user1:
+        username: test
+        password: test
+        email: test@test.com
