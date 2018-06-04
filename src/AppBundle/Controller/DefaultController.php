@@ -21,13 +21,23 @@ class DefaultController extends Controller
     public function initAction(Request $request)
     {
         $data['categories'] = $this->get('app.manager.category')->getCategoryTree();
+        $data['brands'] = $this->get('app.manager.brand')->findAll();
 
         $shoeManager = $this->get('app.manager.shoe');
 
-        $data['shoes'] = [
-            'featured' => $shoeManager->findFeaturedShoes(10, 0),
-            'new' => $shoeManager->findNewShoes(10, 0),
-            'bestSelling' => $shoeManager->findBestSelling(10, 0),
+        $data['sections'] = [
+            [
+                'name' => 'Sản phẩm nổi bật',
+                'items' => $shoeManager->findFeaturedShoes(10, 0),
+            ],
+            [
+                'name' => 'Sản phẩm mới',
+                'items' => $shoeManager->findNewShoes(10, 0),
+            ],
+            [
+                'name' => 'Sản phẩm bán chạy',
+                'items' => $shoeManager->findBestSelling(10, 0),
+            ]
         ];
 
         return new Response(
