@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @Link(
  *     "self",
  *     route="app.shoe.list",
- *     params={"brands[]": "object.getSlug()"}
+ *     params={"brand": "object.getSlug()"}
  * )
  */
 class Brand
