@@ -45,8 +45,12 @@ class ShoeController extends FOSRestController
         $qb = $shoeManager->findByQueryBuilder($category, $brand, $orderBy, $order, $limit, $offset);
 
         return new Response(
-            $this->get('jms_serializer')->serialize(
-                $this->get('app.pagination_factory')->createCollection($qb, $request, $limit, $page, 'app.shoe.list'), 'json'
+            $this->get('jms_serializer')->serialize([
+                'category'   => $category,
+                'brand'      => $brand,
+                'collection' => $this->get('app.pagination_factory')->createCollection($qb, $request, $limit, $page, 'app.shoe.list')
+                ],
+                'json'
             ),
             200,
             ['Content-Type' => 'application/json']
