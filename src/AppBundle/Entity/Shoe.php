@@ -43,6 +43,7 @@ class Shoe
 
     /**
      * @var string
+     * @Serializer\Expose()
      * @Serializer\Groups({"init"})
      */
     private $slug;
