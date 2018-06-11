@@ -46,9 +46,10 @@ class ShoeController extends FOSRestController
 
         return new Response(
             $this->get('jms_serializer')->serialize([
-                'category'   => $category,
-                'brand'      => $brand,
-                'collection' => $this->get('app.pagination_factory')->createCollection($qb, $request, $limit, $page, 'app.shoe.list')
+                    'category'   => $category,
+                    'brand'      => $brand,
+                    'brands'     => $category ? $brandManager->findByCategory($category) : null,
+                    'collection' => $this->get('app.pagination_factory')->createCollection($qb, $request, $limit, $page, 'app.shoe.list')
                 ],
                 'json'
             ),
