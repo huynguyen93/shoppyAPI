@@ -57,6 +57,7 @@ class Shoe
 
     /**
      * @var string
+     * @Serializer\Expose()
      * @Serializer\Groups({"init", "detail"})
      */
     private $description;
@@ -80,6 +81,8 @@ class Shoe
 
     /**
      * @var int
+     * @Serializer\Expose()
+     * @Serializer\Groups({"init", "detail"})
      */
     private $salesCount;
 
