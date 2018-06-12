@@ -153,7 +153,7 @@ class ShoeManager extends AbstractManager
             $qb->andWhere('shoe.'.$column.' = :'.$column)->setParameter($column, $value);
         }
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     /**
