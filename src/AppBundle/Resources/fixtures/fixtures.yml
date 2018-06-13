@@ -77,41 +77,8 @@ AppBundle\Entity\ShoeColorSize:
         size: 43
         quantity: '<numberBetween(0, 25)>'
 
-AppBundle\Entity\ShoeColorImage:
-    imageStyle1_{1..200}:
-        shoeColor: '@shoeColor_<current()>'
-        position: 1
-        xl: '/assets/img/color1/style<numberBetween(1, 10)>/extra-large.jpg'
-        lg: '/assets/img/color1/style<numberBetween(1, 10)>/large.jpg'
-        md: '/assets/img/color1/style<numberBetween(1, 10)>/medium.jpg'
-        sm: '/assets/img/color1/style<numberBetween(1, 10)>/small.jpg'
-
-    imageStyle2_{1..200}:
-        shoeColor: '@shoeColor_<current()>'
-        position: 2
-        xl: '/assets/img/color2/style<numberBetween(1, 10)>/extra-large.jpg'
-        lg: '/assets/img/color2/style<numberBetween(1, 10)>/large.jpg'
-        md: '/assets/img/color2/style<numberBetween(1, 10)>/medium.jpg'
-        sm: '/assets/img/color2/style<numberBetween(1, 10)>/small.jpg'
-
-    imageStyle3_{1..200}:
-        shoeColor: '@shoeColor_<current()>'
-        position: 3
-        xl: '/assets/img/color1/style<numberBetween(1, 10)>/extra-large.jpg'
-        lg: '/assets/img/color1/style<numberBetween(1, 10)>/large.jpg'
-        md: '/assets/img/color1/style<numberBetween(1, 10)>/medium.jpg'
-        sm: '/assets/img/color1/style<numberBetween(1, 10)>/small.jpg'
-
-    imageStyle3_{1..200}:
-        shoeColor: '@shoeColor_<current()>'
-        position: 4
-        xl: '/assets/img/color2/style<numberBetween(1, 10)>/extra-large.jpg'
-        lg: '/assets/img/color2/style<numberBetween(1, 10)>/large.jpg'
-        md: '/assets/img/color2/style<numberBetween(1, 10)>/medium.jpg'
-        sm: '/assets/img/color2/style<numberBetween(1, 10)>/small.jpg'
-
-AppBundle\Entity\User:
-    user1:
-        username: test
-        password: test
-        email: test@test.com
+#AppBundle\Entity\User:
+#    user1:
+#        username: test
+#        password: test
+#        email: test@test.com

@@ -23,4 +23,5 @@ class User
      * @var string
      */
     private $password;
+
 }

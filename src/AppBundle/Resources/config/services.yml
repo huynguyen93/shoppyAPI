@@ -19,6 +19,12 @@ services:
             - '@app.pagination_factory'
             - '@app.manager.category'
 
+    app.manager.shoe_color:
+        class: AppBundle\EntityManager\ShoeColorManager
+        arguments:
+            - '@doctrine'
+            - 'AppBundle\Entity\Shoe'
+
     app.manager.user:
         class: AppBundle\EntityManager\UserManager
         arguments:
