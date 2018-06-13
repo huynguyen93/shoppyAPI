@@ -23,13 +23,13 @@ class AddFixturesCommand extends ContainerAwareCommand
 
         /** @var Shoe[] $shoes */
         $shoes = $shoeManager->findAll();
+        $productType = 1;
 
         foreach ($shoes as $shoe) {
-            $productType = rand(1, 4);
+            $color = 1;
             $shoeColors  = $shoe->getColors();
 
             foreach ($shoeColors as $shoeColor) {
-                $color = rand(1,2);
 
                 for ($i = 1; $i <=5; $i++) {
                     $shoeColorImage = new ShoeColorImage();
@@ -42,7 +42,15 @@ class AddFixturesCommand extends ContainerAwareCommand
 
                     $em->persist($shoeColorImage);
                 }
+
+                $color = $color === 1 ? 2 : 1;
             }
+
+            if ($productType === 4) {
+                $productType = 1;
+            } else {
+                $productType++;
+            };
         }
 
         $em->flush();
