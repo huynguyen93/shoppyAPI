@@ -41,6 +41,7 @@ class PaginationFactory
 
         $paginatedCollection = new PaginatedCollection(
             $shoes,
+            $maxPerPage,
             $pagerFanta->getNbResults(),
             $pagerFanta->getNbPages()
         );

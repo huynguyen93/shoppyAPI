@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Annotation\Link;
-use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
@@ -56,12 +55,6 @@ class Category
      * @var int
      */
     private $position;
-
-    public function __construct()
-    {
-        $this->children = new ArrayCollection();
-    }
-
     /**
      * @return int
      */
