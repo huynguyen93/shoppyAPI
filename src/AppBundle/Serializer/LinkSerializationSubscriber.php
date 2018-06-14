@@ -9,6 +9,7 @@ use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use JMS\Serializer\JsonSerializationVisitor;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 
 class LinkSerializationSubscriber implements EventSubscriberInterface
@@ -61,7 +62,8 @@ class LinkSerializationSubscriber implements EventSubscriberInterface
             if ($annotation instanceof Link) {
                 $uri = $this->router->generate(
                     $annotation->route,
-                    $this->resolveParams($annotation->params, $object)
+                    $this->resolveParams($annotation->params, $object),
+                    Router::ABSOLUTE_URL
                 );
 
                 $links[$annotation->name] = $uri;
