@@ -6,7 +6,9 @@ class PaginatedCollection
 {
     private $items;
 
-    private $itemsPerpage;
+    private $itemsPerPage;
+
+    private $currentPage;
 
     private $total;
 
@@ -16,10 +18,11 @@ class PaginatedCollection
 
     private $_links;
 
-    public function __construct($items, $itemsPerPage, $total, $totalPages)
+    public function __construct($items, $itemsPerPage, $currentPage, $total, $totalPages)
     {
         $this->items = $items;
-        $this->itemsPerpage = $itemsPerPage;
+        $this->itemsPerPage = $itemsPerPage;
+        $this->currentPage = $currentPage;
         $this->total = $total;
         $this->totalPages = $totalPages;
         $this->count = count($items);

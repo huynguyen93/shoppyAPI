@@ -12,13 +12,13 @@ class ShoeController extends FOSRestController
 {
     public function listAction(Request $request)
     {
-        $limit    = $request->query->get('itemsPerPage', 10);
-        $page     = $request->query->get('page', 1);
+        $limit    = (int) $request->query->get('itemsPerPage', 10);
+        $page     = (int) $request->query->get('page', 1);
         $category = $request->query->get('category');
         $brand    = $request->query->get('brand');
         $orderBy  = $request->query->get('orderBy');
         $order    = $request->query->get('order');
-        $offset   = $limit * ($page - 1);
+        $offset   = (int) $limit * ($page - 1);
 
         $categoryManager = $this->get('app.manager.category');
         $brandManager = $this->get('app.manager.brand');
