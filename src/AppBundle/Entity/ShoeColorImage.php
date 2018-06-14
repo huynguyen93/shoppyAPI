@@ -2,10 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotation\Asset;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @Serializer\ExclusionPolicy("all")
+ * @Asset(fields={"sm", "md", "lg", "xl"})
  */
 class ShoeColorImage
 {

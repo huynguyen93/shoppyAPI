@@ -30,7 +30,6 @@ class AddFixturesCommand extends ContainerAwareCommand
             $shoeColors  = $shoe->getColors();
 
             foreach ($shoeColors as $shoeColor) {
-
                 for ($i = 1; $i <=5; $i++) {
                     $shoeColorImage = new ShoeColorImage();
                     $shoeColorImage->setShoeColor($shoeColor);

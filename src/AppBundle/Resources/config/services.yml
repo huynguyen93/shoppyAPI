@@ -44,6 +44,14 @@ services:
         tags:
             - { name: jms_serializer.event_subscriber }
 
+    app.asset_serialization_subscriber:
+        class: AppBundle\Serializer\AssetSerializationSubscriber
+        arguments:
+            - '%asset_url%'
+            - '@annotations.reader'
+        tags:
+            - { name: jms_serializer.event_subscriber }
+
     app.cors_listener:
         class: AppBundle\EventListener\CorsListener
         tags:
