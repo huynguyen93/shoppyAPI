@@ -3,13 +3,14 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Annotation\Link;
+use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @Serializer\ExclusionPolicy("all")
  * @Link(
  *     "self",
- *     route="app.shoe.list",
+ *     route="app.product.list",
  *     params={"category": "object.getSlug()"}
  * )
  */
@@ -55,6 +56,11 @@ class Category
      * @var int
      */
     private $position;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
 
     /**
      * @return int

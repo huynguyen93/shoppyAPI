@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @Serializer\ExclusionPolicy("all")
  * @Link(
  *     "self",
- *     route="app.shoe.list",
+ *     route="app.product.list",
  *     params={"brand": "object.getSlug()"}
  * )
  */

@@ -47,7 +47,7 @@ class ShoeController extends FOSRestController
                     'category'   => $category,
                     'brand'      => $brand,
                     'brands'     => $category ? $brandManager->findByCategory($category) : null,
-                    'collection' => $this->get('app.pagination_factory')->createCollection($qb, $request, $limit, $page, 'app.shoe.list')
+                    'collection' => $this->get('app.pagination_factory')->createCollection($qb, $request, $limit, $page, 'app.product.list')
                 ],
                 'json'
             ),

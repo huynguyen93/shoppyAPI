@@ -2,11 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use Entity\Category;
 use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends Controller
 {
@@ -38,6 +40,31 @@ class DefaultController extends Controller
                 'name' => 'Sản phẩm bán chạy',
                 'items' => $shoeManager->findBestSelling(10, 0),
             ]
+        ];
+
+        $data['endpoints'] = [
+            'init' => [
+                'url' => $this->generateUrl('app.init', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            ],
+            'list' => [
+                'url' => $this->generateUrl('app.product.list', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                'queries' => [
+                    'category'     => 'category',
+                    'brands'       => 'brands',
+                    'colors'       => 'colors',
+                    'sizes'        => 'sizes',
+                    'itemsPerPage' => 'itemsPerPage',
+                    'page'         => 'page',
+                    'orderBy'      => 'orderBy',
+                    'order'        => 'order',
+                ]
+            ],
+            'detail' => [
+                'url' => $this->generateUrl('app.product.detail', ['slug' => ':slug'], UrlGeneratorInterface::ABSOLUTE_URL),
+                'params' => [
+                    'slug' => 'slug',
+                ],
+            ],
         ];
 
         return new Response(

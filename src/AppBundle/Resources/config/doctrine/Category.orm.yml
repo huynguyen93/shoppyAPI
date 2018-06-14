@@ -24,9 +24,15 @@ AppBundle\Entity\Category:
         shoes:
             targetEntity: AppBundle\Entity\Shoe
             mappedBy: category
+        children:
+            nullable: true
+            targetEntity: AppBundle\Entity\Category
+            mappedBy: parent
+            fetch: EAGER
     manyToOne:
         parent:
             nullable: true
             targetEntity: AppBundle\Entity\Category
+            inversedBy: children
             joinColumn:
                 onDelete: CASCADE

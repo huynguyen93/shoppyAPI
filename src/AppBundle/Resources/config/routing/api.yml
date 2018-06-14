@@ -6,12 +6,12 @@ app.init:
     path: /init
     defaults: { _controller: AppBundle:Default:init }
 
-app.shoe.list:
-    path: /shoes
+app.product.list:
+    path: /products
     defaults: { _controller: AppBundle:Shoe:list }
 
-app.shoe.detail:
-    path: /shoes/{slug}
+app.product.detail:
+    path: /products/{slug}
     defaults: { _controller: AppBundle:Shoe:detail }
 
 app.token.new:
