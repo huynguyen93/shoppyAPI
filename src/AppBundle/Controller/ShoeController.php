@@ -17,7 +17,7 @@ class ShoeController extends FOSRestController
         $limit    = (int) $request->query->get('itemsPerPage');
         $page     = (int) $request->query->get('page');
         $category = $request->query->get('category');
-        $brands   = $request->query->get('brands', []);
+        $brands   = $request->query->get('selectedBrands', []);
         $orderBy  = $request->query->get('orderBy');
         $order    = $request->query->get('order');
         $offset   = (int) $limit * ($page - 1);
