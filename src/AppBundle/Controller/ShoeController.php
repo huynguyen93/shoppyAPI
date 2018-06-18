@@ -84,7 +84,7 @@ class ShoeController extends FOSRestController
         }
 
         if (!$request->query->get('orderBy')) {
-            $request->query->set('orderBy', 'featuredPriority');
+            $request->query->set('orderBy', 'featured');
         }
 
         if (!$request->query->get('order')) {

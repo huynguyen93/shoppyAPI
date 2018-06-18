@@ -77,7 +77,7 @@ class Shoe
     /**
      * @var int
      */
-    private $featuredPriority;
+    private $featured;
 
     /**
      * @var int
@@ -269,17 +269,17 @@ class Shoe
     /**
      * @return int
      */
-    public function getFeaturedPriority()
+    public function getFeatured()
     {
-        return $this->featuredPriority;
+        return $this->featured;
     }
 
     /**
-     * @param int $featuredPriority
+     * @param int $featured
      */
-    public function setFeaturedPriority($featuredPriority)
+    public function setFeatured($featured)
     {
-        $this->featuredPriority = $featuredPriority;
+        $this->featured = $featured;
     }
 
     /**
@@ -296,5 +296,15 @@ class Shoe
     public function setSalesCount($salesCount)
     {
         $this->salesCount = $salesCount;
+    }
+
+    /**
+     * @Serializer\VirtualProperty()
+     * @Serializer\Expose()
+     * @Serializer\Groups({"init", "detail"})
+     */
+    public function isFeatured()
+    {
+        return $this->featured > 0;
     }
 }

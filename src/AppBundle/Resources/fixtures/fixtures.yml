@@ -26,7 +26,7 @@ AppBundle\Entity\Shoe:
         description: '<text(50)>'
         position: '<current()>'
         releaseDate: '<date_create()>'
-        featuredPriority: '<randomElement([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])>'
+        featured: '<randomElement([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])>'
         salesCount: '<numberBetween(0, 200)>'
         quantity: 0
 

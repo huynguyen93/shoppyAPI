@@ -28,7 +28,7 @@ AppBundle\Entity\Shoe:
             options:
                 unsigned: true
                 default: 0
-        featuredPriority:
+        featured:
             type: integer
             options:
                 unsigned: true

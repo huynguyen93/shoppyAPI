@@ -91,8 +91,8 @@ class ShoeManager extends AbstractManager
     public function findFeaturedShoes($limit, $offset)
     {
         $qb = $this->findAllQueryBuilder($limit, $offset)
-            ->andWhere('shoe.featuredPriority > 0')
-            ->orderBy('shoe.featuredPriority', 'DESC')
+            ->andWhere('shoe.featured > 0')
+            ->orderBy('shoe.featured', 'DESC')
             ->innerJoin('shoe.brand', 'brand', 'WITH')
             ->leftJoin('shoe.colors', 'shoeColor', 'WITH')
             ->leftJoin('shoeColor.images', 'shoeColorImage', 'WITH')
