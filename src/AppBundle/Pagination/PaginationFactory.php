@@ -39,15 +39,16 @@ class PaginationFactory
             $shoes[] = $shoe;
         }
 
+        $routeParams = array_merge($routeParams, $request->query->all());
+
         $paginatedCollection = new PaginatedCollection(
             $shoes,
-            $maxPerPage,
             $page,
             $pagerFanta->getNbResults(),
-            $pagerFanta->getNbPages()
+            $pagerFanta->getNbPages(),
+            $routeParams
         );
 
-        $routeParams = array_merge($routeParams, $request->query->all());
         $createLinkUrl = function ($pageNum) use ($route, $routeParams) {
             return $this->router->generate($route, array_merge($routeParams, ['page' => $pageNum]));
         };

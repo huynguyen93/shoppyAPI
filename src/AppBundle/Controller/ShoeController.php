@@ -12,8 +12,10 @@ class ShoeController extends FOSRestController
 {
     public function listAction(Request $request)
     {
-        $limit    = (int) $request->query->get('itemsPerPage', 10);
-        $page     = (int) $request->query->get('page', 1);
+        $this->setDefaultQueries($request);
+
+        $limit    = (int) $request->query->get('itemsPerPage');
+        $page     = (int) $request->query->get('page');
         $category = $request->query->get('category');
         $brand    = $request->query->get('brand');
         $orderBy  = $request->query->get('orderBy');
@@ -69,5 +71,24 @@ class ShoeController extends FOSRestController
             200,
             ['Content-Type' => 'application/json']
         );
+    }
+
+    private function setDefaultQueries(Request $request)
+    {
+        if (!$request->query->get('itemsPerPage')) {
+            $request->query->set('itemsPerPage', 10);
+        }
+
+        if (!$request->query->get('page')) {
+            $request->query->set('page', 1);
+        }
+
+        if (!$request->query->get('orderBy')) {
+            $request->query->set('orderBy', 'featuredPriority');
+        }
+
+        if (!$request->query->get('order')) {
+            $request->query->set('order', 'DESC');
+        }
     }
 }
