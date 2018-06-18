@@ -38,7 +38,7 @@ class ShoeManager extends AbstractManager
 
     public function findByQueryBuilder(
         Category $category = null,
-        Brand $brands = null,
+        array $brands = [],
         $orderBy = null,
         $order = 'ASC',
         $limit,
@@ -70,7 +70,7 @@ class ShoeManager extends AbstractManager
         }
 
         if ($brands) {
-            $qb->andWhere('shoe.brand = :brands')
+            $qb->andWhere('shoe.brand IN (:brands)')
                 ->setParameter('brands', $brands);
         }
 

@@ -17,7 +17,7 @@ class ShoeController extends FOSRestController
         $limit    = (int) $request->query->get('itemsPerPage');
         $page     = (int) $request->query->get('page');
         $category = $request->query->get('category');
-        $brand    = $request->query->get('brand');
+        $brands   = $request->query->get('brands', []);
         $orderBy  = $request->query->get('orderBy');
         $order    = $request->query->get('order');
         $offset   = (int) $limit * ($page - 1);
@@ -34,22 +34,22 @@ class ShoeController extends FOSRestController
             }
         }
 
-        if ($brand) {
-            $brand = $brandManager->findOneBy(['slug' => $brand]);
+        if ($brands) {
+            $brands = $brandManager->findBy(['slug' => $brands]);
 
-            if (!$brand) {
+            if (!$brands) {
                 return [];
             }
         }
 
-        $qb = $shoeManager->findByQueryBuilder($category, $brand, $orderBy, $order, $limit, $offset);
+        $qb = $shoeManager->findByQueryBuilder($category, $brands, $orderBy, $order, $limit, $offset);
 
         return new Response(
             $this->get('jms_serializer')->serialize([
-                    'category'   => $category,
-                    'brand'      => $brand,
-                    'brands'     => $category ? $brandManager->findByCategory($category) : null,
-                    'collection' => $this->get('app.pagination_factory')->createCollection($qb, $request, $limit, $page, 'app.product.list')
+                    'category'       => $category,
+                    'brands'         => $category ? $brandManager->findByCategory($category) : [],
+                    'selectedBrands' => $brands,
+                    'collection'     => $this->get('app.pagination_factory')->createCollection($qb, $request, $limit, $page, 'app.product.list')
                 ],
                 'json'
             ),
