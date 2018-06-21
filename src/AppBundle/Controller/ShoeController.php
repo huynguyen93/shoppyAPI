@@ -12,6 +12,7 @@ class ShoeController extends FOSRestController
 {
     public function listAction(Request $request)
     {
+        $queries = $request->query->all();
         $this->setDefaultQueries($request);
 
         $limit    = (int) $request->query->get('itemsPerPage');
@@ -44,12 +45,40 @@ class ShoeController extends FOSRestController
 
         $qb = $shoeManager->findByQueryBuilder($category, $brands, $orderBy, $order, $limit, $offset);
 
+        $createListUrl = function ($params) use ($queries) {
+            return $this->generateUrl('app.product.list', array_merge($queries, $params));
+        };
+
+        $listOptions = [
+            'itemsPerPage' =>  [
+                'label' => 'Số sản phẩm 1 trang',
+                'options' => [
+                    ['label' => '10', 'value' => '10', 'link' => $createListUrl(['itemsPerPage' => 10])],
+                    ['label' => '20', 'value' => '20', 'link' => $createListUrl(['itemsPerPage' => 20])],
+                    ['label' => '30', 'value' => '30', 'link' => $createListUrl(['itemsPerPage' => 30])],
+                ],
+            ],
+            'sortBy' => [
+                'label' => 'Sắp xếp theo',
+                'options' => [
+                    ['label' => 'Nổi bật', 'value' => 'featured', 'link' => $createListUrl(['orderBy' => 'featured', 'order' => 'DESC'])],
+                    ['label' => 'Mới -> cũ', 'value' => 'releaseDate', 'link' => $createListUrl(['orderBy' => 'releaseDate', 'order' => 'DESC'])],
+                    ['label' => 'Bán đắt -> ế', 'value' => 'salesCount', 'link' => $createListUrl(['orderBy' => 'salesCount', 'order' => 'DESC'])],
+                    ['label' => 'Giá rẻ -> mắc', 'value' => 'priceLowest', 'link' => $createListUrl(['orderBy' => 'price', 'order' => 'ASC'])],
+                    ['label' => 'Giá mắc -> rẻ', 'value' => 'priceHighest', 'link' => $createListUrl(['orderBy' => 'price', 'order' => 'DESC'])],
+                ]
+            ]
+        ];
+
+        $shoeCollection = $this->get('app.pagination_factory')
+            ->createCollection($qb, $request, $limit, $page, 'app.product.list', [], $listOptions);
+
         return new Response(
             $this->get('jms_serializer')->serialize([
                     'category'       => $category,
                     'brands'         => $category ? $brandManager->findByCategory($category) : $brandManager->findAll(),
                     'selectedBrands' => $brands,
-                    'collection'     => $this->get('app.pagination_factory')->createCollection($qb, $request, $limit, $page, 'app.product.list')
+                    'collection'     => $shoeCollection,
                 ],
                 'json'
             ),

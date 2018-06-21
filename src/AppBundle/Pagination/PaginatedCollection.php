@@ -18,7 +18,9 @@ class PaginatedCollection
 
     private $_links;
 
-    public function __construct($items, $currentPage, $total, $totalPages, $queries)
+    private $viewOptions;
+
+    public function __construct($items, $currentPage, $total, $totalPages, array $queries, array $viewOptions)
     {
         $this->items = $items;
         $this->currentPage = $currentPage;
@@ -26,6 +28,7 @@ class PaginatedCollection
         $this->totalPages = $totalPages;
         $this->count = count($items);
         $this->queries = $queries;
+        $this->viewOptions = $viewOptions;
     }
 
     public function addLink($rel, $url)

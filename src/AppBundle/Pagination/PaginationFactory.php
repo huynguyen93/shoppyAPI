@@ -26,7 +26,8 @@ class PaginationFactory
         $maxPerPage,
         $page,
         $route,
-        array $routeParams = []
+        array $routeParams = [],
+        array $viewOptions = []
     ) {
         $adapter = new DoctrineORMAdapter($queryBuilder);
         $pagerFanta = new Pagerfanta($adapter);
@@ -46,7 +47,8 @@ class PaginationFactory
             $page,
             $pagerFanta->getNbResults(),
             $pagerFanta->getNbPages(),
-            $routeParams
+            $routeParams,
+            $viewOptions
         );
 
         $createLinkUrl = function ($pageNum) use ($route, $routeParams) {
