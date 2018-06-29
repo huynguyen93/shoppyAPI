@@ -30,11 +30,52 @@ AppBundle\Entity\Shoe:
         salesCount: '<numberBetween(0, 200)>'
         quantity: 0
 
+AppBundle\Entity\Color:
+    color_1:
+        name: 'White'
+        code: '#fff'
+    color_2:
+        name: 'Silver'
+        code: '#e5e5e5'
+    color_3:
+        name: 'Khaki'
+        code: '#ebe1be'
+    color_4:
+        name: 'Gold'
+        code: '#DAAF00'
+    color_5:
+        name: 'Orange'
+        code: '#f36b26'
+    color_6:
+        name: 'Blue'
+        code: '#1790c8'
+    color_7:
+        name: 'Olive'
+        code: '#7F7F00'
+    color_8:
+        name: 'Red'
+        code: '#e7352b'
+    color_9:
+        name: 'Purple'
+        code: '#8d429f'
+    color_10:
+        name: 'Grey'
+        code: '#777878'
+    color_11:
+        name: 'Brown'
+        code: '#825d41'
+    color_12:
+        name: 'Black'
+        code: '#111'
+    color_13:
+        name: 'Cream'
+        code: '#FBF4D9'
+
 AppBundle\Entity\ShoeColor:
     shoeColor_{1..400}:
         shoe: '@shoe_*'
-        name: '<name()>'
-        code: '<numberBetween(1000, 2000)>'
+        name: '@shoe_*->name @color_*->name'
+        color: '@color_*'
 
 AppBundle\Entity\ShoeColorSize:
     size36_{1..400}:

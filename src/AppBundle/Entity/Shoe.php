@@ -67,7 +67,7 @@ class Shoe
      * @Serializer\Expose()
      * @Serializer\Groups({"init", "detail"})
      */
-    private $colors;
+    private $shoeColors;
 
     /**
      * @var int
@@ -221,9 +221,17 @@ class Shoe
     /**
      * @return ShoeColor[]
      */
-    public function getColors()
+    public function getShoeColors()
     {
-        return $this->colors;
+        return $this->shoeColors;
+    }
+
+    /**
+     * @param ShoeColor[] $shoeColors
+     */
+    public function setShoeColors($shoeColors)
+    {
+        $this->shoeColors = $shoeColors;
     }
 
     /**

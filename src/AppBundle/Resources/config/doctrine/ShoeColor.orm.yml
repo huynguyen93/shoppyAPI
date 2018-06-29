@@ -9,9 +9,14 @@ AppBundle\Entity\ShoeColor:
         name:
             type: string
             length: 100
-        code:
+        slug:
             type: string
             length: 100
+            gedmo:
+                slug:
+                    separator: -
+                    fields:
+                        - name
     oneToMany:
         images:
             targetEntity: AppBundle\Entity\ShoeColorImage
@@ -22,4 +27,7 @@ AppBundle\Entity\ShoeColor:
     manyToOne:
         shoe:
             targetEntity: AppBundle\Entity\Shoe
-            inversedBy: colors
+            inversedBy: shoeColors
+        color:
+            targetEntity: AppBundle\Entity\Color
+            inversedBy: shoeColors

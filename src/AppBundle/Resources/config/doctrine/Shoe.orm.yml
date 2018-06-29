@@ -44,7 +44,7 @@ AppBundle\Entity\Shoe:
                 unsigned: true
                 default: 0
     oneToMany:
-        colors:
+        shoeColors:
             targetEntity: AppBundle\Entity\ShoeColor
             mappedBy: shoe
     manyToOne:

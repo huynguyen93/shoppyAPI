@@ -2,10 +2,16 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Annotation\Link;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @Serializer\ExclusionPolicy("all")
+ * @Link(
+ *     "self",
+ *     route="app.product.detail",
+ *     params={"slug": "object.getShoe().getSlug()", "color": "object.getSlug()"}
+ * )
  */
 class ShoeColor
 {
@@ -28,8 +34,17 @@ class ShoeColor
 
     /**
      * @var string
+     * @Serializer\Expose()
+     * @Serializer\Groups({"init"})
      */
-    private $code;
+    private $slug;
+
+    /**
+     * @var Color
+     * @Serializer\Expose()
+     * @Serializer\Groups({"init", "detail"})
+     */
+    private $color;
 
     /**
      * @var ShoeColorImage[]
@@ -126,19 +141,34 @@ class ShoeColor
     }
 
     /**
-     * @return string
+     * @return Color
      */
-    public function getCode()
+    public function getColor()
     {
-        return $this->code;
+        return $this->color;
     }
 
     /**
-     * @param string $code
+     * @param Color $color
      */
-    public function setCode($code)
+    public function setColor($color)
     {
-        $this->code = $code;
+        $this->color = $color;
     }
 
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
 }

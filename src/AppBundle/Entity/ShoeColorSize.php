@@ -11,11 +11,14 @@ class ShoeColorSize
 {
     /**
      * @var int
+     * @Serializer\Expose()
+     * @Serializer\Groups({"detail"})
      */
     private $id;
 
     /**
      * @var ShoeColor
+     * @Serializer\Expose()
      */
     private $shoeColor;
 
