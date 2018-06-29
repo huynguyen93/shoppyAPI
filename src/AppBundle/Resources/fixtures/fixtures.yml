@@ -14,7 +14,7 @@ AppBundle\Entity\Category:
 
 AppBundle\Entity\Brand:
     brand_{1..10}:
-        name: '<name()>'
+        name (unique): "<randomElement(['Nike', 'Asics', 'Adidas', 'Puma', 'Converse', 'Reebok', 'Vans', 'Lascote', 'New Balance', 'Thượng Đình'])>"
         slug: '<name()>'
 
 AppBundle\Entity\Shoe:

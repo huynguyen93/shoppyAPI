@@ -35,7 +35,7 @@ class ShoeColor
     /**
      * @var string
      * @Serializer\Expose()
-     * @Serializer\Groups({"init"})
+     * @Serializer\Groups({"init", "detail"})
      */
     private $slug;
 
