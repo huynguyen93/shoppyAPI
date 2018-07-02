@@ -78,6 +78,8 @@ class ShoeManager extends AbstractManager
             $qb->orderBy('shoe.'.$orderBy, $order);
         }
 
+        $qb->addOrderBy('shoe.id', 'ASC');
+
         return $qb;
     }
 
