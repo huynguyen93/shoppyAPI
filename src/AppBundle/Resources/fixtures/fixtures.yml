@@ -70,53 +70,6 @@ AppBundle\Entity\Color:
         name: 'Cream'
         code: '#FBF4D9'
 
-AppBundle\Entity\ShoeColor:
-    shoeColor_{1..400}:
-        shoe: '@shoe_*'
-        name: '@shoe_*->name @color_*->name'
-        color: '@color_*'
-
-AppBundle\Entity\ShoeColorSize:
-    size36_{1..400}:
-        shoeColor: '@shoeColor_<current()>'
-        size: 36
-        quantity: '<numberBetween(0, 25)>'
-
-    size37_{1..400}:
-        shoeColor: '@shoeColor_<current()>'
-        size: 37
-        quantity: '<numberBetween(0, 25)>'
-
-    size38_{1..400}:
-        shoeColor: '@shoeColor_<current()>'
-        size: 38
-        quantity: '<numberBetween(0, 25)>'
-
-    size39_{1..400}:
-        shoeColor: '@shoeColor_<current()>'
-        size: 39
-        quantity: '<numberBetween(0, 25)>'
-
-    size40_{1..400}:
-        shoeColor: '@shoeColor_<current()>'
-        size: 40
-        quantity: '<numberBetween(0, 25)>'
-
-    size41_{1..400}:
-        shoeColor: '@shoeColor_<current()>'
-        size: 41
-        quantity: '<numberBetween(0, 25)>'
-
-    size42_{1..400}:
-        shoeColor: '@shoeColor_<current()>'
-        size: 42
-        quantity: '<numberBetween(0, 25)>'
-
-    size43_{1..400}:
-        shoeColor: '@shoeColor_<current()>'
-        size: 43
-        quantity: '<numberBetween(0, 25)>'
-
 #AppBundle\Entity\User:
 #    user1:
 #        username: test

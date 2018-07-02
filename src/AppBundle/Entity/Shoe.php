@@ -235,11 +235,12 @@ class Shoe
     }
 
     /**
-     * @param ShoeColor[] $colors
+     * @param ShoeColor $shoeColor
      */
-    public function setColors($colors)
+    public function addShoeColor(ShoeColor $shoeColor)
     {
-        $this->colors = $colors;
+        $this->shoeColors[] = $shoeColor;
+        $shoeColor->setShoe($this);
     }
 
     /**

@@ -4,7 +4,9 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Color;
 use AppBundle\Entity\Shoe;
+use AppBundle\Entity\ShoeColor;
 use AppBundle\Entity\ShoeColorImage;
+use AppBundle\Entity\ShoeColorSize;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -34,28 +36,41 @@ class AddFixturesCommand extends ContainerAwareCommand
         foreach ($shoes as $shoe) {
             /** @var Color $color */
             $colorFolder = 1;
-            $shoeColors  = $shoe->getShoeColors();
             $lastColor = [];
+            $colorCount = mt_rand(1, 7);
 
-            foreach ($shoeColors as $shoeColor) {
+            for ($i = 0; $i < $colorCount; $i++) {
                 $color = $this->getUniqueColor($colors, $lastColor);
                 $lastColor[] = $color;
+
+                $shoeColor = new ShoeColor();
+                $shoe->addShoeColor($shoeColor);
                 $shoeColor->setColor($color);
                 $shoeColor->setSlug(null);
                 $shoeColor->setName($shoe->getName() . ' ' . $color->getName());
 
-                for ($i = 1; $i <=5; $i++) {
+                for ($j= 1; $j <= 5; $j++) {
                     $shoeColorImage = new ShoeColorImage();
                     $shoeColorImage->setShoeColor($shoeColor);
                     $shoeColorImage->setPosition(rand(1,10));
-                    $shoeColorImage->setXl('/assets/img/prod'.$productType.'/color'.$colorFolder.'/style'.$i.'/extra-large.jpg');
-                    $shoeColorImage->setLg('/assets/img/prod'.$productType.'/color'.$colorFolder.'/style'.$i.'/large.jpg');
-                    $shoeColorImage->setMd('/assets/img/prod'.$productType.'/color'.$colorFolder.'/style'.$i.'/medium.jpg');
-                    $shoeColorImage->setSm('/assets/img/prod'.$productType.'/color'.$colorFolder.'/style'.$i.'/small.jpg');
+                    $shoeColorImage->setXl('/assets/img/prod'.$productType.'/color'.$colorFolder.'/style'.$j.'/extra-large.jpg');
+                    $shoeColorImage->setLg('/assets/img/prod'.$productType.'/color'.$colorFolder.'/style'.$j.'/large.jpg');
+                    $shoeColorImage->setMd('/assets/img/prod'.$productType.'/color'.$colorFolder.'/style'.$j.'/medium.jpg');
+                    $shoeColorImage->setSm('/assets/img/prod'.$productType.'/color'.$colorFolder.'/style'.$j.'/small.jpg');
 
-                    $em->persist($shoeColor);
                     $em->persist($shoeColorImage);
                 }
+
+                for ($k = 36; $k <= 43; $k++) {
+                    $shoeColorSize = new ShoeColorSize();
+                    $shoeColorSize->setShoeColor($shoeColor);
+                    $shoeColorSize->setSize($k);
+                    $shoeColorSize->setQuantity(mt_rand(0, 25));
+                    $em->persist($shoeColorSize);
+                }
+
+                $em->persist($shoeColor);
+                $em->flush();
 
                 $colorFolder = $colorFolder === 1 ? 2 : 1;
             }
@@ -67,7 +82,8 @@ class AddFixturesCommand extends ContainerAwareCommand
             };
         }
 
-        $em->flush();
+
+
         echo "OK";
     }
 
