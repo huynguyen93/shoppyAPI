@@ -167,4 +167,13 @@ class Cart
     {
         $this->price += $price;
     }
+
+    public function updatePrice()
+    {
+        $this->price = 0;
+
+        foreach ($this->items as $item) {
+            $this->price += $item->getPrice() * $item->getQuantity();
+        }
+    }
 }

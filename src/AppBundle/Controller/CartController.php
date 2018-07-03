@@ -56,8 +56,6 @@ class CartController extends Controller
                 if ($cartItem->getQuantity() > $shoeColorSize->getQuantity()) {
                     throw new HttpException(400, 'not enough "quantity"');
                 }
-
-                $cart->addPrice($item->getPrice() * $quantity);
             }
         }
 
@@ -66,13 +64,15 @@ class CartController extends Controller
             $cartItem->setShoeColorSize($shoeColorSize);
             $cartItem->setQuantity($quantity);
             $cartItem->setSize($shoeColorSize->getSize());
-            $cartItem->setPrice($shoeColorSize->getShoePrice() * $quantity);
+            $cartItem->setPrice($shoeColorSize->getShoePrice());
             $cartItem->setName($shoeColorSize->getShoeColorName());
             $cartItem->setImage($shoeColorSize->getShoeColorFirstSmImage());
 
             $cart->addItem($cartItem);
             $em->persist($cart);
         }
+
+        $cart->updatePrice();
 
         $em->persist($cartItem);
         $em->flush();
@@ -89,13 +89,52 @@ class CartController extends Controller
         );
     }
 
+    public function updateAction(Request $request, Cart $cart, CartItem $cartItem)
+    {
+        if ($cart !== $cartItem->getCart()) {
+            throw new HttpException(400, sprintf(
+                'not found "cartItem (%s)"  in "cart (%s)"', $cartItem->getId(), $cart->getId()
+            ));
+        }
+
+        $quantity = (int) $request->query->get('quantity');
+        $cartItemManager = $this->get('app.manager.cart_item');
+        $em = $this->get('doctrine')->getManager();
+
+        if (1 > $quantity) {
+            $cartItemManager->delete($cartItem);
+            $cart->removeItem($cartItem);
+        } else {
+            $cartItem->setQuantity($quantity);
+        }
+
+        $cart->updatePrice();
+
+        $em->persist($cart);
+        $em->persist($cartItem);
+
+        return new Response($this->get('jms_serializer')->serialize($cart, 'json'), 200, ['Content-Type' => 'application/json']);
+    }
+
     public function removeAction(Request $request, Cart $cart)
     {
         $cartItemIds = $request->query->get('cartItems');
+        $cartItemManager = $this->get('app.manager.cart_item');
+        $em = $this->get('doctrine')->getManager();
         /** @var CartItem[] $cartItems */
-        $cartItems = $this->get('app.manager.cart_item')->findBy(['id' => $cartItemIds]);
+        $cartItems = $cartItemManager->findBy(['id' => $cartItemIds, 'cart' => $cart]);
 
-        $cart->removeItems($cartItems);
+        if (!empty($cartItems)) {
+            foreach ($cartItems as $cartItem) {
+                $cartItemManager->delete($cartItem);
+                $cart->removeItem($cartItem);
+            }
+
+            $cart->updatePrice();
+
+            $em->persist($cart);
+            $em->flush();
+        }
 
         return new Response(
             $this->get('jms_serializer')->serialize($cart, 'json'), 200, ['Content-Type' => 'application/json']

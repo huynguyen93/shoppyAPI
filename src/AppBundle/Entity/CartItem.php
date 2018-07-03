@@ -5,6 +5,10 @@ use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @Serializer\ExclusionPolicy("all")
+ * @Serializer\VirtualProperty(
+ *     "totalPrice",
+ *     exp="object.getTotalPrice()",
+ *  )
  */
 class CartItem
 {
@@ -181,5 +185,10 @@ class CartItem
     public function setShoeColorSize($shoeColorSize)
     {
         $this->shoeColorSize = $shoeColorSize;
+    }
+
+    public function getTotalPrice()
+    {
+        return $this->price * $this->quantity;
     }
 }

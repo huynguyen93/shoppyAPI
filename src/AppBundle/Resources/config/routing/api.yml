@@ -26,6 +26,10 @@ app.cart.add:
     path: /carts/add
     defaults: { _controller: AppBundle:Cart:add }
 
+app.cart.update:
+    path: /carts/{cart}/update/{cartItem}
+    defaults: { _controller: AppBundle:Cart:update }
+
 app.cart.remove:
     path: /carts/{cart}/remove
     defaults: { _controller: AppBundle:Cart:remove }
