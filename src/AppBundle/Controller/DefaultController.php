@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Cart;
 use Entity\Category;
 use JMS\Serializer\SerializationContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -40,7 +41,12 @@ class DefaultController extends BaseController
             $cart = $this->get('app.manager.cart')->find($cartId);
         }
 
+        if (null === $cart) {
+            $cart = new Cart();
+        }
+
         $data['cart'] = $cart;
+
 
         $router = $this->get('router');
         $generateEndpoint = function ($route, $params , $queries) use ($router) {
