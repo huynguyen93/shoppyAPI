@@ -18,7 +18,6 @@ class ShoeColorSize
 
     /**
      * @var ShoeColor
-     * @Serializer\Expose()
      */
     private $shoeColor;
 
