@@ -6,6 +6,10 @@ use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @Serializer\ExclusionPolicy("all")
+ * @Serializer\VirtualProperty(
+ *     "totalQuantity",
+ *     exp="object.getTotalQuantity()",
+ *  )
  */
 class Cart
 {
@@ -175,5 +179,18 @@ class Cart
         foreach ($this->items as $item) {
             $this->price += $item->getPrice() * $item->getQuantity();
         }
+    }
+
+    public function getTotalQuantity()
+    {
+        $quantity = 0;
+
+        if (!$this->items->isEmpty()) {
+            foreach ($this->items as $item) {
+                $quantity += $item->getQuantity();
+            }
+        }
+
+        return $quantity;
     }
 }
