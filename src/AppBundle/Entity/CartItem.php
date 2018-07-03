@@ -25,6 +25,7 @@ class CartItem
 
     /**
      * @var ShoeColorSize
+     * @Serializer\Expose()
      */
     private $shoeColorSize;
 
