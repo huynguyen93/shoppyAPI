@@ -7,7 +7,7 @@ AppBundle\Entity\Cart:
             generator: { strategy: AUTO }
     fields:
         price:
-            type: string
+            type: float
             length: 100
         createdAt:
             type: datetime

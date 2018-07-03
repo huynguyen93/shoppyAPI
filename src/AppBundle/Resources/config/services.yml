@@ -43,6 +43,12 @@ services:
             - '@doctrine'
             - 'AppBundle\Entity\Cart'
 
+    app.manager.cart_item:
+        class: AppBundle\EntityManager\CartItemManager
+        arguments:
+            - '@doctrine'
+            - 'AppBundle\Entity\CartItem'
+
     app.manager.user:
         class: AppBundle\EntityManager\UserManager
         arguments:

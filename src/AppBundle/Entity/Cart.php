@@ -146,7 +146,22 @@ class Cart
     }
 
     /**
-     * @param int $price
+     * @param CartItem[] $items
+     */
+    public function removeItems(array $items)
+    {
+        foreach ($items as $item) {
+            $this->removeItem($item);
+        }
+    }
+
+    public function removeItem(CartItem $item)
+    {
+        $this->items->removeElement($item);
+    }
+
+    /**
+     * @param float $price
      */
     public function addPrice($price)
     {

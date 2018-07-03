@@ -12,11 +12,6 @@ use JMS\Serializer\Annotation as Serializer;
  *     route="app.product.detail",
  *     params={"slug": "object.getSlug()"}
  * )
- * @Link(
- *     "addToCart",
- *     route="app.product.detail",
- *     params={"slug": "object.getSlug()"}
- * )
  */
 class Shoe
 {

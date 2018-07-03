@@ -22,47 +22,72 @@ class DefaultController extends Controller
 
     public function initAction(Request $request)
     {
+        $cartId = (int) $request->query->get('cart');
+        $cart = null;
+
         $data['categories'] = $this->get('app.manager.category')->getCategoryTree();
         $data['brands'] = $this->get('app.manager.brand')->findAll();
 
         $shoeManager = $this->get('app.manager.shoe');
 
         $data['sections'] = [
-            [
-                'name' => 'Sản phẩm nổi bật',
-                'items' => $shoeManager->findFeaturedShoes(10, 0),
-            ],
-            [
-                'name' => 'Sản phẩm mới',
-                'items' => $shoeManager->findNewShoes(10, 0),
-            ],
-            [
-                'name' => 'Sản phẩm bán chạy',
-                'items' => $shoeManager->findBestSelling(10, 0),
-            ]
+            ['name' => 'Sản phẩm nổi bật', 'items' => $shoeManager->findFeaturedShoes(10, 0)],
+            ['name' => 'Sản phẩm mới', 'items' => $shoeManager->findNewShoes(10, 0)],
+            ['name' => 'Sản phẩm bán chạy', 'items' => $shoeManager->findBestSelling(10, 0)],
         ];
+
+        if ($cartId) {
+            $cart = $this->get('app.manager.cart')->find($cartId);
+        }
+
+        $data['cart'] = $cart;
 
         $data['endpoints'] = [
             'init' => [
-                'url' => $this->generateUrl('app.init', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                'url'     => $this->generateUrl('app.init', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                'params'  => [],
+                'queries' => ['cart' => 'cart'],
             ],
-            'list' => [
-                'url' => $this->generateUrl('app.product.list', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                'queries' => [
-                    'category'     => 'category',
-                    'brands'       => 'brands',
-                    'colors'       => 'colors',
-                    'sizes'        => 'sizes',
-                    'itemsPerPage' => 'itemsPerPage',
-                    'page'         => 'page',
-                    'orderBy'      => 'orderBy',
-                    'order'        => 'order',
-                ]
+            'carts' => [
+                'add' => [
+                    'url'     => $this->generateUrl('app.cart.add', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                    'params'  => [],
+                    'queries' => [
+                        'cart'            => 'cart',
+                        'shoeColorSizeId' => 'shoeColorSizeId',
+                        'quantity'        => 'quantity',
+                    ],
+                ],
+                'remove' => [
+                    'url' => $this->generateUrl('app.cart.remove', ['cart' => ':cartId'], UrlGeneratorInterface::ABSOLUTE_URL),
+                    'params'  => ['cartId' => 'cartId'],
+                    'queries' => ['cartItems' => 'cartItems[]'],
+                ],
+                'detail' => [
+                    'url'     => $this->generateUrl('app.cart.detail', ['cart' => ':cartId'], UrlGeneratorInterface::ABSOLUTE_URL),
+                    'params'  => ['cartId' => 'cartId'],
+                    'queries' => [],
+                ],
             ],
-            'detail' => [
-                'url' => $this->generateUrl('app.product.detail', ['slug' => ':slug'], UrlGeneratorInterface::ABSOLUTE_URL),
-                'params' => [
-                    'slug' => 'slug',
+            'products' => [
+                'list' => [
+                    'url'     => $this->generateUrl('app.product.list', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                    'params'  => [],
+                    'queries' => [
+                        'category'       => 'category',
+                        'selectedBrands' => 'selectedBrands[]',
+                        'colors'         => 'colors',
+                        'sizes'          => 'sizes',
+                        'itemsPerPage'   => 'itemsPerPage',
+                        'page'           => 'page',
+                        'orderBy'        => 'orderBy',
+                        'order'          => 'order',
+                    ]
+                ],
+                'detail' => [
+                    'url'     => $this->generateUrl('app.product.detail', ['slug' => ':slug'], UrlGeneratorInterface::ABSOLUTE_URL),
+                    'params'  => ['slug' => 'slug'],
+                    'queries' => [],
                 ],
             ],
         ];
@@ -71,7 +96,7 @@ class DefaultController extends Controller
             $this->get('jms_serializer')->serialize(
                 $data,
                 'json',
-                SerializationContext::create()->setGroups(['init'])
+                SerializationContext::create()->setGroups(['init'])->setSerializeNull(true)
             ),
             200,
             [
