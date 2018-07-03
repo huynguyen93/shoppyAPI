@@ -23,5 +23,13 @@ app.user.new:
     defaults: { _controller: AppBundle:User:new }
 
 app.cart.add:
-    path: /cart/add
+    path: /carts/add
     defaults: { _controller: AppBundle:Cart:add }
+
+app.cart.remove:
+    path: /carts/{cart}/remove
+    defaults: { _controller: AppBundle:Cart:remove }
+
+app.cart.detail:
+    path: /carts/{cart}
+    defaults: { _controller: AppBundle:Cart:detail }

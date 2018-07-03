@@ -10,6 +10,7 @@ class CartItem
 {
     /**
      * @var int
+     * @Serializer\Expose()
      */
     private $id;
 
@@ -45,7 +46,7 @@ class CartItem
      * @var float
      * @Serializer\Expose()
      */
-    private $price;
+    private $price = 0;
 
     /**
      * @var string
