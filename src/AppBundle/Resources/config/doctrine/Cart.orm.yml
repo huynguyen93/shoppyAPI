@@ -1,0 +1,29 @@
+AppBundle\Entity\Cart:
+    type: entity
+    table: cart
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        price:
+            type: string
+            length: 100
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    oneToMany:
+        items:
+            targetEntity: AppBundle\Entity\CartItem
+            mappedBy: cart
+    manyToOne:
+        user:
+            nullable: true
+            targetEntity: AppBundle\Entity\User

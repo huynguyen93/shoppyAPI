@@ -1,0 +1,26 @@
+AppBundle\Entity\CartItem:
+    type: entity
+    table: cart_item
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100
+        size:
+            type: float
+        quantity:
+            type: integer
+        price:
+            type: float
+        image:
+            type: string
+            length: 100
+    manyToOne:
+        cart:
+            targetEntity: AppBundle\Entity\Cart
+            inversedBy: items
+        shoeColorSize:
+            targetEntity: AppBundle\Entity\ShoeColorSize
