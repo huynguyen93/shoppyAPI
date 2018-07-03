@@ -84,6 +84,21 @@ class ShoeColorSize
         return $this->shoeColor;
     }
 
+    public function getShoeColorName()
+    {
+        return $this->getShoeColor()->getName();
+    }
+
+    public function getShoeColorFirstSmImage()
+    {
+        return $this->getShoeColor()->getImages()[0]->getSm();
+    }
+
+    public function getShoePrice()
+    {
+        return $this->getShoeColor()->getShoe()->getPrice();
+    }
+
     /**
      * @param ShoeColor $shoeColor
      */

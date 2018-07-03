@@ -21,3 +21,7 @@ app.token.new:
 app.user.new:
     path: /users
     defaults: { _controller: AppBundle:User:new }
+
+app.cart.add:
+    path: /cart/add
+    defaults: { _controller: AppBundle:Cart:add }
