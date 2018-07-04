@@ -94,6 +94,6 @@ class DefaultController extends BaseController
             ],
         ];
 
-        return $this->createResponse($data, ['Default', 'init']);
+        return $this->createResponse($data, ['Default', 'init', 'cart']);
     }
 }

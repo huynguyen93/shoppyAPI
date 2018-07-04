@@ -12,7 +12,7 @@ class ShoeColorSize
     /**
      * @var int
      * @Serializer\Expose()
-     * @Serializer\Groups({"detail"})
+     * @Serializer\Groups({"detail", "cart"})
      */
     private $id;
 
@@ -24,14 +24,14 @@ class ShoeColorSize
     /**
      * @var int
      * @Serializer\Expose()
-     * @Serializer\Groups({"detail"})
+     * @Serializer\Groups({"detail", "cart"})
      */
     private $size;
 
     /**
      * @var int
      * @Serializer\Expose()
-     * @Serializer\Groups({"detail"})
+     * @Serializer\Groups({"detail", "cart"})
      */
     private $quantity;
 

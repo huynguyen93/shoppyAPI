@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
+use AppBundle\Annotation\Asset;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
@@ -9,12 +10,14 @@ use JMS\Serializer\Annotation as Serializer;
  *     "totalPrice",
  *     exp="object.getTotalPrice()",
  *  )
+ * @Asset(fields={"image"})
  */
 class CartItem
 {
     /**
      * @var int
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $id;
 
@@ -26,37 +29,42 @@ class CartItem
     /**
      * @var ShoeColorSize
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $shoeColorSize;
 
     /**
      * @var string
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $name;
 
     /**
      * @var string
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $size;
 
     /**
      * @var int
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $quantity;
 
     /**
      * @var float
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $price = 0;
 
     /**
      * @var string
      * @Serializer\Expose()
-     * @Serializer\Groups({"init", "detail"})
+     * @Serializer\Groups({"cart"})
      */
     private $image;
 

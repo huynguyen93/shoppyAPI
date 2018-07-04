@@ -16,24 +16,28 @@ class Cart
     /**
      * @var int
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $id;
 
     /**
      * @var CartItem[]
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $items;
 
     /**
      * @var User
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $user;
 
     /**
      * @var float
      * @Serializer\Expose()
+     * @Serializer\Groups({"cart"})
      */
     private $price = 0;
 
