@@ -112,6 +112,7 @@ class CartController extends Controller
 
         $em->persist($cart);
         $em->persist($cartItem);
+        $em->flush();
 
         return new Response($this->get('jms_serializer')->serialize($cart, 'json'), 200, ['Content-Type' => 'application/json']);
     }
