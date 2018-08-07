@@ -105,6 +105,11 @@ class CartController extends Controller
             $cartItemManager->delete($cartItem);
             $cart->removeItem($cartItem);
         } else {
+            $shoeColorSize = $cartItem->getShoeColorSize();
+
+            if ($shoeColorSize->getQuantity() < $quantity) {
+                throw new HttpException(400, 'Not valid quantity, maximum:'. $quantity);
+            }
             $cartItem->setQuantity($quantity);
         }
 
